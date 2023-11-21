@@ -1,0 +1,22 @@
+<app-nav></app-nav>
+<div *ngIf="detailedProduct" class="container mt-5">
+  <h2 class="mt-5">{{ detailedProduct.name }}</h2>
+  <div class="d-flex flex-column flex-lg-row">
+    <img src="{{ detailedProduct.featuredAsset.preview }}"  alt="Product image">
+    <div class="px-lg-5 d-flex flex-column justify-content-between">
+      <p class="pt-5 pt-lg-0">{{ detailedProduct.description }}</p>
+      <form [formGroup]="variantForm" >
+
+        <div *ngFor="let variant of detailedProduct.variants" class="d-flex align-items-center mt-3">
+            <input type="radio" [value]="variant" placeholder="{{variant.name}}" formControlName="selectedVariant">
+           <p> {{ variant.name }}</p>
+        </div>
+      </form>
+      <div *ngIf="selectedVariant">
+        <p class="price"> {{ selectedVariant.price | customCurrency:'USD' }}</p>
+        <button class="btn btn-success" (click)="addToOrder()">Add to Order</button>
+      </div>
+      
+    </div>
+  </div>
+</div>

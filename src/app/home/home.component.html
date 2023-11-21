@@ -1,0 +1,52 @@
+<app-nav></app-nav>
+<div class="container mt-5">
+  <div class="d-flex justify-content-between flex-column-reverse flex-lg-row">
+    <button class="btn btn-outline-primary mt-3 mt-lg-0" (click)="resetFilters()">Reset
+      Filters</button>
+
+    <div class="d-flex flex-column flex-lg-row">
+      <div class="form-inline my-2 my-lg-0 uk-position-relative">
+        <input class="form-control mr-sm-2" placeholder="Search"
+          [(ngModel)]="filterName" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0"
+          (click)="applyFilter()">Search</button>
+          <div *ngIf="filterWarning"  class="alert alert-info position-absolute" role="alert">
+            {{ filterWarning }}
+          </div>
+      </div>
+
+      <div class="btn-group ml-lg-3">
+        <button type="button" class="btn btn-secondary dropdown-toggle"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item"
+            (click)="applyFilterAndSort(filterName, 'ASC')">Newest</a>
+          <a class="dropdown-item"
+            (click)="applyFilterAndSort(filterName, 'DESC')">Oldest</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="container">
+  <div class="d-flex flex-column flex-lg-row flex-wrap justify-content-between ">
+    <div class="product-card card p-1" *ngFor="let product of products"
+      [ngStyle]="product.featuredAsset === null ? {'display' : 'none'} : {'display' : 'block'}">
+      <div *ngIf="product.featuredAsset?.preview">
+        <img src="{{product.featuredAsset.preview}}" class="img-fluid"
+          alt="Product image">
+        <h3 class="mt-3">{{product.name}}</h3>
+        <!-- <p>{{product.variants[0].price |  currency }}</p> -->
+        <div class="text-right">
+          <button class="btn btn-info mb-2"
+            (click)="goToProductDetail(product.id)">View
+            Details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
